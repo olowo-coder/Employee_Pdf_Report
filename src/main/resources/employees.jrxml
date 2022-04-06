@@ -3,6 +3,16 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c26223fc-f1bb-4966-868f-03abd0995747">
     <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
     <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <parameter name="title" class="java.lang.String"/>
     <queryString language="SQL">
         <![CDATA[]]>
     </queryString>
@@ -15,11 +25,25 @@
         <band splitType="Stretch"/>
     </background>
     <title>
-        <band height="79" splitType="Stretch">
+        <band height="92" splitType="Stretch">
+            <rectangle>
+                <reportElement x="0" y="0" width="555" height="92" backcolor="rgba(38, 52, 201, 0.39215687)" uuid="e86efabe-cd1d-4291-8e61-29994e50ff5a"/>
+            </rectangle>
             <textField pattern="MMMMM dd, yyyy">
-                <reportElement x="10" y="0" width="100" height="30" uuid="96ee697c-2a00-4ab3-a6d4-278a1e766d53"/>
+                <reportElement x="10" y="0" width="100" height="30" forecolor="#FCFCFC" uuid="96ee697c-2a00-4ab3-a6d4-278a1e766d53"/>
                 <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
             </textField>
+            <textField>
+                <reportElement x="105" y="30" width="341" height="30" forecolor="#FAF7F7" uuid="a3fab51a-3cab-45f0-b7b5-4af11e667c57"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="American Typewriter" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{title}.toUpperCase()]]></textFieldExpression>
+            </textField>
+            <image>
+                <reportElement x="470" y="20" width="50" height="50" uuid="1302e489-5b97-491d-9e00-60587ba165d6"/>
+                <imageExpression><![CDATA["/Users/mac/Desktop/reports/pepsi.png"]]></imageExpression>
+            </image>
         </band>
     </title>
     <pageHeader>
@@ -29,25 +53,25 @@
         <band height="61" splitType="Stretch"/>
     </columnHeader>
     <detail>
-        <band height="125" splitType="Stretch">
+        <band height="39" splitType="Stretch">
             <textField>
-                <reportElement x="50" y="27" width="71" height="31" uuid="63bf2dd3-46a6-49ea-aa79-1d93b1a82d99"/>
+                <reportElement x="10" y="0" width="50" height="20" uuid="63bf2dd3-46a6-49ea-aa79-1d93b1a82d99"/>
                 <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="150" y="26" width="71" height="31" uuid="a815ac51-4079-481a-a2eb-3849ac6c9493"/>
+                <reportElement x="70" y="0" width="120" height="20" uuid="a815ac51-4079-481a-a2eb-3849ac6c9493"/>
                 <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="250" y="27" width="71" height="31" uuid="749536b4-129e-491a-91a3-c4974c3bf50f"/>
+                <reportElement x="200" y="0" width="150" height="20" uuid="749536b4-129e-491a-91a3-c4974c3bf50f"/>
                 <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="370" y="27" width="71" height="31" uuid="be8e44e8-2d0e-4592-b339-d75daf336804"/>
+                <reportElement x="360" y="0" width="71" height="20" uuid="be8e44e8-2d0e-4592-b339-d75daf336804"/>
                 <textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="460" y="26" width="71" height="31" uuid="510fc797-8d8f-4651-9400-2b3012077fc6"/>
+                <reportElement x="470" y="0" width="81" height="20" uuid="510fc797-8d8f-4651-9400-2b3012077fc6"/>
                 <textFieldExpression><![CDATA[$F{jobTitle}]]></textFieldExpression>
             </textField>
         </band>
@@ -58,7 +82,4 @@
     <pageFooter>
         <band height="54" splitType="Stretch"/>
     </pageFooter>
-    <summary>
-        <band height="42" splitType="Stretch"/>
-    </summary>
 </jasperReport>

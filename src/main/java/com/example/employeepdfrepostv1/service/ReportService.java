@@ -5,10 +5,12 @@ import com.example.employeepdfrepostv1.repository.EmployeeRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
@@ -43,5 +45,18 @@ public class ReportService {
         }
 
         return "Report Generated";
+    }
+
+    public byte[] downloadReport(String title) throws FileNotFoundException, JRException {
+        String path = "/Users/mac/Desktop/reports/";
+        JRBeanCollectionDataSource beanCollectionDataSource =
+                new JRBeanCollectionDataSource(employeeRepository.findAll());
+        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/employees.jrxml"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", title);
+        JasperPrint report = JasperFillManager.fillReport(compileReport, map, beanCollectionDataSource);
+//        JasperExportManager.exportReportToPdfFile(report, path + "employee.pdf");
+        byte[] data = JasperExportManager.exportReportToPdf(report);
+        return data;
     }
 }
