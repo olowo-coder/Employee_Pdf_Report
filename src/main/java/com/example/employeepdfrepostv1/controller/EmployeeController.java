@@ -1,10 +1,13 @@
 package com.example.employeepdfrepostv1.controller;
 
 import com.example.employeepdfrepostv1.entity.Employee;
+import com.example.employeepdfrepostv1.service.EmailService;
 import com.example.employeepdfrepostv1.service.EmployeeService;
 import com.example.employeepdfrepostv1.service.ReportService;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
 
 //@RestController
 @Controller
@@ -21,11 +25,13 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
     private final ReportService reportService;
+    private final EmailService emailService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, ReportService reportService) {
+    public EmployeeController(EmployeeService employeeService, ReportService reportService, EmailService emailService) {
         this.employeeService = employeeService;
         this.reportService = reportService;
+        this.emailService = emailService;
     }
 
     @ResponseBody
@@ -46,5 +52,15 @@ public class EmployeeController {
         return ResponseEntity.ok().headers(httpHeaders)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(reportService.downloadReport(title));
+    }
+
+    @GetMapping("/send/mail")
+    @ResponseBody
+    public Object sendMail() throws JRException, FileNotFoundException {
+        final InputStreamSource attachment = new ByteArrayResource(reportService.downloadReport("Pepsi"));
+        emailService
+                .sendMessage("Testing Email",
+                        "lanre.olowo@yahoo.com", "Happy are you", attachment);
+        return Map.of("message", "Email sent");
     }
 }
